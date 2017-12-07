@@ -1,3 +1,49 @@
+# Install Docker
+
+If you are on Fedora/CentOs RedHat based Linux os:
+```sh
+sudo yum check-update
+
+curl -fsSL https://get.docker.com/ | sh
+
+sudo systemctl start docker
+
+sudo systemctl status docker
+
+sudo systemctl enable docker
+```
+
+If you are on Debian/Ubuntu Linux Os:
+```sh
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+curl -fsSL https://get.docker.com/ | sh
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+sudo apt-get update
+
+apt-cache policy docker-ce
+
+sudo apt-get install -y docker-ce
+
+sudo systemctl status docker
+```
+
+## Start Rancher Server
+
+```sh
+sudo docker run -d --restart=unless-stopped -p 8080:8080 rancher/server:stable
+
+# Tail the logs to show Rancher
+$ sudo docker logs -f <CONTAINER_ID>
+```
+Our UI is exposed on port 8080, so in order to view the UI, go to http://<SERVER_IP>:8080. If you are running your browser on the same host running Rancher server, you will need to use the host’s real IP, like http://192.168.1.100:8080 and not http://localhost:8080 or http://127.0.0.1:8080.
+
+Note:
+Rancher will not have access control configured and your UI and API will be available to anyone who has access to your IP. We recommend configuring access control.
+
+To add a host, access the UI and click Infrastructure, which will immediately bring you to the Hosts page. Click on the Add Host. Rancher will prompt you to select a host registration URL. This URL is where Rancher server is running and must be reachable from all the hosts that you will be adding. This is useful in installations where Rancher server will be exposed to the Internet through a NAT firewall or a load balancer. If your host has a private or local IP address like 192.168.*.*, Rancher will print a warning asking you to make sure that the hosts can indeed reach the URL.
+
 # cloud-cicd
 Setup environment for cloud based containerized application with continuous integration and delivery
 

@@ -2,7 +2,7 @@
 
 If you are on Fedora/CentOs RedHat based Linux os:
 ```sh
-sudo yum check-update
+sudo yum update
 
 curl -fsSL https://get.docker.com/ | sh
 
